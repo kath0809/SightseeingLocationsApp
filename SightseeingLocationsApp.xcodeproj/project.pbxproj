@@ -18,6 +18,7 @@
 		F66EA30E2C935DA500FEA3A5 /* LocationsDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66EA30D2C935DA500FEA3A5 /* LocationsDataService.swift */; };
 		F66EA3102C935EEB00FEA3A5 /* LocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66EA30F2C935EEB00FEA3A5 /* LocationsView.swift */; };
 		F66EA3122C93627100FEA3A5 /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66EA3112C93627100FEA3A5 /* LocationsViewModel.swift */; };
+		F66EA3142C93799700FEA3A5 /* LocationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F66EA3132C93799700FEA3A5 /* LocationsListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		F66EA30D2C935DA500FEA3A5 /* LocationsDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationsDataService.swift; sourceTree = "<group>"; };
 		F66EA30F2C935EEB00FEA3A5 /* LocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsView.swift; sourceTree = "<group>"; };
 		F66EA3112C93627100FEA3A5 /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
+		F66EA3132C93799700FEA3A5 /* LocationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				F66EA30F2C935EEB00FEA3A5 /* LocationsView.swift */,
+				F66EA3132C93799700FEA3A5 /* LocationsListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F66EA30E2C935DA500FEA3A5 /* LocationsDataService.swift in Sources */,
+				F66EA3142C93799700FEA3A5 /* LocationsListView.swift in Sources */,
 				F66EA3122C93627100FEA3A5 /* LocationsViewModel.swift in Sources */,
 				F66EA2DE2C935A3C00FEA3A5 /* ContentView.swift in Sources */,
 				F66EA3102C935EEB00FEA3A5 /* LocationsView.swift in Sources */,
