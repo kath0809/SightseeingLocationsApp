@@ -50,7 +50,7 @@ extension LocationDetailView {
                 Image($0)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
                     .clipped()
             }
         }
@@ -85,21 +85,23 @@ extension LocationDetailView {
     }
     
     private var mapLayer: some View {
-        Map(coordinateRegion: .constant(MKCoordinateRegion(
+        Map(position: .constant(.region(MKCoordinateRegion(
             center: location.coordinates,
-            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))),
-            annotationItems: [location]) { location in
-            MapAnnotation(coordinate: location.coordinates) {
+            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))))) {
+            
+            Annotation(location.id, coordinate: location.coordinates) {
                 LocationMapAnnotationView()
                     .shadow(radius: 10)
             }
         }
-            .allowsHitTesting(false)
-            .aspectRatio(1, contentMode: .fit)
-            .clipShape(RoundedRectangle(cornerRadius: 30))
+        .allowsHitTesting(false)
+        .aspectRatio(1, contentMode: .fit)
+        .clipShape(RoundedRectangle(cornerRadius: 30))
     }
+
     
     private var backButton: some View {
+    
         Button(action: {
             vm.sheetLocation = nil
         }, label: {
@@ -119,3 +121,23 @@ extension LocationDetailView {
     
 }
 
+/*
+ 
+ Deprecated method for mapLayer
+ 
+ private var mapLayer: some View {
+     Map(coordinateRegion: .constant(MKCoordinateRegion(
+         center: location.coordinates,
+         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))),
+         annotationItems: [location]) { location in
+         MapAnnotation(coordinate: location.coordinates) {
+             LocationMapAnnotationView()
+                 .shadow(radius: 10)
+         }
+     }
+         .allowsHitTesting(false)
+         .aspectRatio(1, contentMode: .fit)
+         .clipShape(RoundedRectangle(cornerRadius: 30))
+ }
+ 
+ */

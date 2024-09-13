@@ -13,6 +13,7 @@ struct LocationsView: View {
     
         //@State private var vm = LocationsViewModel()
     @EnvironmentObject private var vm: LocationsViewModel
+    let maxWidthForIpad: CGFloat = 700
     
         //    @State private var cameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.8902, longitude: 12.4922), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)))
     
@@ -24,6 +25,7 @@ struct LocationsView: View {
             VStack(spacing: 0) {
                 header
                     .padding()
+                    .frame(maxWidth: maxWidthForIpad)
                 Spacer()
                 locationsPreviewStack
             }
@@ -49,7 +51,7 @@ extension LocationsView {
                 Text(vm.mapLocation.name + ", " + vm.mapLocation.cityName)
                     .font(.title2)
                     .fontWeight(.black)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.primary)
                     .frame(height: 55)
                     .frame(maxWidth: .infinity)
                     // Turn off the animation of the header
@@ -58,7 +60,7 @@ extension LocationsView {
                     .overlay(alignment: .leading) {
                         Image(systemName: "arrow.down")
                             .font(.headline)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.primary)
                             .padding()
                             // turns the arrow when location list is showing
                             .rotationEffect(Angle(degrees: vm.showLocationsList ? 180 : 0))
@@ -95,6 +97,8 @@ extension LocationsView {
                     LocationPreviewView(location: location)
                         .shadow(color: .black.opacity(0.3), radius: 20)
                         .padding()
+                        .frame(maxWidth: maxWidthForIpad)
+                        .frame(maxWidth: .infinity)
                         .transition(.asymmetric(
                             insertion: .move(edge: .trailing),
                             removal: .move(edge: .leading)))
