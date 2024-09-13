@@ -5,6 +5,7 @@
     //  Created by Karima Thingvold on 12/09/2024.
     //
 
+
 import SwiftUI
 import MapKit
 
@@ -17,18 +18,23 @@ struct LocationsView: View {
     
     var body: some View {
         ZStack {
-            Map(position: $vm.cameraPosition)
-                .ignoresSafeArea()
             
+            mapLayer
+            .ignoresSafeArea()
             VStack(spacing: 0) {
                 header
                     .padding()
-                
                 Spacer()
+                locationsPreviewStack
             }
+        }
+        .sheet(item: $vm.sheetLocation, onDismiss: nil) { location in
+            LocationDetailView(location: location)
         }
     }
 }
+
+
 #Preview {
     LocationsView()
         .environmentObject(LocationsViewModel())
@@ -43,18 +49,18 @@ extension LocationsView {
                 Text(vm.mapLocation.name + ", " + vm.mapLocation.cityName)
                     .font(.title2)
                     .fontWeight(.black)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(.black)
                     .frame(height: 55)
                     .frame(maxWidth: .infinity)
-                // Turn off the animation of the header
+                    // Turn off the animation of the header
                     .animation(.none, value: vm.mapLocation)
                 
                     .overlay(alignment: .leading) {
                         Image(systemName: "arrow.down")
                             .font(.headline)
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(.black)
                             .padding()
-                        // turns the arrow when location list is showing
+                            // turns the arrow when location list is showing
                             .rotationEffect(Angle(degrees: vm.showLocationsList ? 180 : 0))
                     }
             }
@@ -65,5 +71,35 @@ extension LocationsView {
         .background(.thickMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 15)
+    }
+    
+    private var mapLayer: some View {
+        Map(position: $vm.cameraPosition) {
+            ForEach(vm.locations) { location in
+                Annotation(location.name, coordinate: location.coordinates) {
+                    LocationMapAnnotationView()
+                        .scaleEffect(vm.mapLocation == location ? 1 : 0.7)
+                        .shadow(radius: 10)
+                        .onTapGesture {
+                            vm.showNextLocation(location: location)
+                        }
+                }
+            }
+        }
+    }
+    
+    private var locationsPreviewStack: some View {
+        ZStack {
+            ForEach(vm.locations) { location in
+                if vm.mapLocation == location {
+                    LocationPreviewView(location: location)
+                        .shadow(color: .black.opacity(0.3), radius: 20)
+                        .padding()
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .trailing),
+                            removal: .move(edge: .leading)))
+                }
+            }
+        }
     }
 }
